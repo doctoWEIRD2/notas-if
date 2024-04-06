@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Notas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label, input, select, button {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Calculadora de Notas</h2>
+        <label for="escolha">Escolha uma opção:</label>
+        <select id="escolha">
+            <option value="Média Geral">Média Geral</option>
+            <option value="Nota Necessária">Nota Necessária</option>
+        </select>
+        <label for="nota1">primeira nota:</label>
+        <input type="number" id="nota1" required>
+        <label for="nota2">segunda nota:</label>
+        <input type="number" id="nota2">
+        <button onclick="calcular()">Calcular</button>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function calcular() {
+            var escolha = document.getElementById("escolha").value;
+            var nota1 = parseFloat(document.getElementById("nota1").value);
+
+            if (isNaN(nota1)) {
+                alert("insira uma nota válida.");
+                return;
+            }
+
+            var resultado = document.getElementById("resultado");
+            resultado.innerHTML = "";
+
+            if (escolha === "Média Geral") {
+                var nota2 = parseFloat(document.getElementById("nota2").value);
+                if (isNaN(nota2)) {
+                    alert("insira uma nota valida.");
+                    return;
+                }
+                var peso1 = 4;
+                var peso2 = 6;
+                var media_geral = 60;
+                var nota_ponderada = (nota1 * peso1 + nota2 * peso2) / (peso1 + peso2);
+                var status = "";
+                if (nota_ponderada >= media_geral) {
+                    status = "Aprovado✔️";
+                } else if (nota_ponderada >= 30) {
+                    status = "Recuperação";
+                } else {
+                    status = "Reprovado❌";
+                }
+                resultado.innerHTML = "Nota: " + nota_ponderada.toFixed(2) + "<br>Status: " + status;
+            } else if (escolha === "Nota Necessária") {
+                var peso1 = 4;
+                var peso2 = 6;
+                var media_geral = 60;
+                var nota_necessaria = (media_geral * (peso1 + peso2) - nota1 * peso1) / peso2;
+                var nota_necessaria_arredondada = Math.ceil(nota_necessaria);
+                resultado.innerHTML = "Nota necessária: " + nota_necessaria_arredondada.toFixed(2);
+            }
+        }
+    </script>
+</body>
+</html>
