@@ -1,79 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3086158504097895"
-     crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Notas</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        select,
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        #nota3,
-        #nota4,
-        #mensagem-anual {
-            display: none;
-        }
-
-        #resultado {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+        /* Estilos CSS existentes aqui */
     </style>
+    <!-- Código do anúncio do Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
 </head>
 <body>
     <div class="container">
+        <!-- Conteúdo da calculadora de notas -->
         <h2>Calculadora de Notas</h2>
         <label for="escolha">Escolha uma opção:</label>
         <select id="escolha" onchange="mostrarNotas()">
@@ -93,66 +33,13 @@
         <div id="mensagem-anual">Para calcular a Média Anual, selecione 4 notas.</div>
     </div>
 
-    <!-- Anúncio -->
-    <div id="anuncio" style="text-align: center; margin-top: 20px;">
-        <!-- Código do anúncio do Google AdSense -->
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3086158504097895" crossorigin="anonymous"></script>
-        <!-- Título do Anúncio -->
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-3086158504097895"
-            data-ad-slot="XXXXXXXXXX"
-            data-ad-format="auto"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+    <!-- Anúncio do Google AdSense -->
+    <div id="anuncio">
+        <amp-auto-ads type="adsense" data-ad-client="ca-pub-1234567890123456"></amp-auto-ads>
     </div>
 
     <script>
         // JavaScript existente aqui
-        function mostrarNotas() {
-            var escolha = document.getElementById("escolha").value;
-            if (escolha === "Média Semestral") {
-                document.getElementById("nota3").style.display = "none";
-                document.getElementById("nota4").style.display = "none";
-                document.getElementById("mensagem-anual").style.display = "none";
-            } else {
-                document.getElementById("nota3").style.display = "block";
-                document.getElementById("nota4").style.display = "block";
-                document.getElementById("mensagem-anual").style.display = "block";
-            }
-        }
-
-        function calcular() {
-            var escolha = document.getElementById("escolha").value;
-            var nota1 = parseFloat(document.getElementById("nota1").value);
-            var nota2 = parseFloat(document.getElementById("nota2").value);
-            var nota3 = parseFloat(document.getElementById("nota3").value);
-            var nota4 = parseFloat(document.getElementById("nota4").value);
-
-            var peso1 = 4;
-            var peso2 = 6;
-            var mediaGeral = 60;
-
-            var nota_ponderada = (nota1 * peso1 + nota2 * peso2) / (peso1 + peso2);
-
-            var resultado = document.getElementById("resultado");
-            resultado.innerHTML = "";
-
-            if (escolha === "Média Semestral") {
-                var status = "";
-                if (nota_ponderada >= mediaGeral) {
-                    status = "Aprovado";
-                } else if (nota_ponderada >= 30) {
-                    status = "Recuperação";
-                } else {
-                    status = "Reprovado";
-                }
-                resultado.innerHTML = "Nota: " + nota_ponderada.toFixed() + "<br>Status: " + status;
-            } else if (escolha === "Média Anual") {
-                resultado.innerHTML = "Para calcular a Média Anual, selecione 4 notas.";
-            }
-        }
     </script>
 </body>
 </html>
