@@ -1,99 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>/minha Nota IF</title>
+    <title>Calculadora de Notas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
         }
+
         .container {
-            max-width: 400px;
+            max-width: 600px;
+            margin: 0 auto;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        label, input, select, button {
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
             display: block;
+            margin-bottom: 5px;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 10px;
             margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
         }
+
         button {
-            background-color: #4CAF50;
-            color: white;
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
             border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
+
         button:hover {
             background-color: #45a049;
+        }
+
+        #nota3,
+        #nota4,
+        #mensagem-anual {
+            display: none;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>minha nota IF</h2>
+        <h2>Calculadora de Notas</h2>
         <label for="escolha">Escolha uma opção:</label>
-        <select id="escolha">
-            <option value="Média Geral">Média Geral</option>
-            <option value="Nota Necessária">Nota Necessária</option>
+        <select id="escolha" onchange="mostrarNotas()">
+            <option value="Média Semestral">Média Semestral</option>
+            <option value="Média Anual">Média Anual</option>
         </select>
-        <label for="nota1">primeira nota:</label>
+        <label for="nota1">Digite a primeira nota:</label>
         <input type="number" id="nota1" required>
-        <label for="nota2">segunda nota:</label>
-        <input type="number" id="nota2">
+        <label for="nota2">Digite a segunda nota:</label>
+        <input type="number" id="nota2" required>
+        <label for="nota3">Digite a terceira nota:</label>
+        <input type="number" id="nota3">
+        <label for="nota4">Digite a quarta nota:</label>
+        <input type="number" id="nota4">
         <button onclick="calcular()">Calcular</button>
         <div id="resultado"></div>
+        <div id="mensagem-anual">Para calcular a Média Anual, selecione 4 notas.</div>
     </div>
 
     <script>
+        function mostrarNotas() {
+            var escolha = document.getElementById("escolha").value;
+            if (escolha === "Média Semestral") {
+                document.getElementById("nota3").style.display = "none";
+                document.getElementById("nota4").style.display = "none";
+                document.getElementById("mensagem-anual").style.display = "none";
+            } else {
+                document.getElementById("nota3").style.display = "block";
+                document.getElementById("nota4").style.display = "block";
+                document.getElementById("mensagem-anual").style.display = "block";
+            }
+        }
+
         function calcular() {
             var escolha = document.getElementById("escolha").value;
             var nota1 = parseFloat(document.getElementById("nota1").value);
+            var nota2 = parseFloat(document.getElementById("nota2").value);
+            var nota3 = parseFloat(document.getElementById("nota3").value);
+            var nota4 = parseFloat(document.getElementById("nota4").value);
 
-            if (isNaN(nota1)) {
-                alert("insira uma nota válida.");
-                return;
-            }
+            var peso1 = 4;
+            var peso2 = 6;
+            var mediaGeral = 60;
+
+            var nota_ponderada = (nota1 * peso1 + nota2 * peso2) / (peso1 + peso2);
 
             var resultado = document.getElementById("resultado");
             resultado.innerHTML = "";
 
-            if (escolha === "Média Geral") {
-                var nota2 = parseFloat(document.getElementById("nota2").value);
-                if (isNaN(nota2)) {
-                    alert("insira uma nota valida.");
-                    return;
-                }
-                var peso1 = 4;
-                var peso2 = 6;
-                var media_geral = 60;
-                var nota_ponderada = (nota1 * peso1 + nota2 * peso2) / (peso1 + peso2);
+            if (escolha === "Média Semestral") {
                 var status = "";
-                if (nota_ponderada >= media_geral) {
-                    status = "Aprovado✔️";
+                if (nota_ponderada >= mediaGeral) {
+                    status = "Aprovado";
                 } else if (nota_ponderada >= 30) {
                     status = "Recuperação";
                 } else {
-                    status = "Reprovado❌";
+                    status = "Reprovado";
                 }
-                resultado.innerHTML = "Nota: " + nota_ponderada.toFixed(2) + "<br>Status: " + status;
-            } else if (escolha === "Nota Necessária") {
-                var peso1 = 4;
-                var peso2 = 6;
-                var media_geral = 60;
-                var nota_necessaria = (media_geral * (peso1 + peso2) - nota1 * peso1) / peso2;
-                var nota_necessaria_arredondada = Math.ceil(nota_necessaria);
-                resultado.innerHTML = "Nota necessária: " + nota_necessaria_arredondada.toFixed(2);
+                resultado.innerHTML = "Nota: " + nota_ponderada.toFixed() + "<br>Status: " + status;
+            } else if (escolha === "Média Anual") {
+                resultado.innerHTML = "Para calcular a Média Anual, selecione 4 notas.";
             }
         }
     </script>
