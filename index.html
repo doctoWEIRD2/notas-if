@@ -111,7 +111,35 @@
     </div>
 
     <script>
-        // JavaScript existente aqui
+        function mostrarNotas() {
+            var escolha = document.getElementById("escolha").value;
+            if (escolha === "Média Anual") {
+                document.getElementById("nota3").style.display = "block";
+                document.getElementById("nota4").style.display = "block";
+                document.getElementById("mensagem-anual").style.display = "block";
+            } else {
+                document.getElementById("nota3").style.display = "none";
+                document.getElementById("nota4").style.display = "none";
+                document.getElementById("mensagem-anual").style.display = "none";
+            }
+        }
+
+        function calcular() {
+            var nota1 = parseFloat(document.getElementById("nota1").value);
+            var nota2 = parseFloat(document.getElementById("nota2").value);
+            var escolha = document.getElementById("escolha").value;
+            var resultado;
+
+            if (escolha === "Média Anual") {
+                var nota3 = parseFloat(document.getElementById("nota3").value);
+                var nota4 = parseFloat(document.getElementById("nota4").value);
+                resultado = (nota1 + nota2 + nota3 + nota4) / 4;
+            } else {
+                resultado = (nota1 + nota2) / 2;
+            }
+
+            document.getElementById("resultado").innerHTML = "Sua nota ponderada é: " + resultado.toFixed(2);
+        }
     </script>
 </body>
 </html>
